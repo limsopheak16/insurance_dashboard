@@ -1,10 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTotalInsured } from "@/services/dashboard/get-total-insured";
 import { getTotalSumInsured } from "@/services/dashboard/get-total-sum-insured";
+import { getTotalPolicy} from "@/services/dashboard/get-total-policy";
+import {getProposedPremium} from "@/services/dashboard/get-proposed-Premium-Amount";
+import {getTotalProspect}from "@/services/dashboard/get-total-total-Prospect"
 
 export async function OverviewDashboardCards() {
-  const totalSales = 10;
-  const totalCustomers = 10;
+  const totalSales = await getTotalPolicy();
+  console.log("hhh",totalSales)
+  // const totalCustomers = 10;
   const totalSuppliers = 10;
 
   const totalInsured = await getTotalInsured();
@@ -12,6 +16,14 @@ export async function OverviewDashboardCards() {
 
   const totalSumInsured = await getTotalSumInsured();
   console.log(totalSumInsured);
+
+  const totalPremiumAmount= await getProposedPremium();
+  console.log("00000",totalPremiumAmount);
+
+  const TotalProspect = await getTotalProspect();
+  console.log("ffffff",TotalProspect);
+
+
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -32,9 +44,9 @@ export async function OverviewDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalSales.toFixed(2)}</div>
+          <div className="text-2xl font-bold">{totalSales.toString()}</div>
           <p className="text-xs text-muted-foreground">
-            Premium Amount: $10,000
+            Premium Amount: ${totalPremiumAmount}
           </p>
         </CardContent>
       </Card>
@@ -81,7 +93,7 @@ export async function OverviewDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalCustomers}</div>
+          <div className="text-2xl font-bold">{TotalProspect.toString()}</div>
           <p className="text-xs text-muted-foreground">Number of company: 4</p>
         </CardContent>
       </Card>
